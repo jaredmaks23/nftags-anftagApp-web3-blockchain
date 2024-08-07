@@ -60,6 +60,6 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 
 **NFTag Web Application**
 
-The NFTag web application is a powerful platform designed to manage both NFTs and asset tracking. Here's a
+The NFTag web application is a powerful platform designed to manage both NFTs and asset tracking. 
 
 
