@@ -10,7 +10,7 @@ Non-Fungible Tokens (NFTs) have emerged as a revolutionary tool for representing
 
 Imagine a world where your valuables are not only secure but also personalized to reflect your unique style. Where every item you own, from your laptop to your beloved pet, is part of a vibrant, decentralized community dedicated to keeping your belongings safe.
 
-NFTag offers a solution that leverages NFTs and Bluetooth technology to create a secure, engaging, and efficient way to manage valuable items. You can attach the NFTag device to valuables such as laptops, pets, or other belongings. It combines the power of NFTs and Bluetooth to offer a unique blend of functionality and personalization.
+NFTag offers a solution that leverages NFTs, Bluetooth and Internet of Things (IoT) technology to create a secure, engaging, and efficient way to manage valuable items. You can attach the NFTag device to valuables such as laptops, pets, or other belongings. It combines the power of NFTs and Bluetooth to offer a unique blend of functionality and personalization for tracking. They come in two flavours; one with ESP32-C3 Wifi Bluetooth Development Board Module, 1.28 Inch Round LCD Display Screen 240X240 IPS and one without.
 
 Visit our web application here: http://3.145.55.152:8050/
 
