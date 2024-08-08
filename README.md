@@ -12,6 +12,8 @@ Imagine a world where your valuables are not only secure but also personalized t
 
 NFTag offers a solution that leverages NFTs and Bluetooth technology to create a secure, engaging, and efficient way to manage valuable items. You can attach the NFTag deviceto valuables such as laptops, pets, or other belongings. It combines the power of NFTs and Bluetooth to offer a unique blend of functionality and personalization.
 
+Visit our web application here: http://3.145.55.152:8050/
+
 **The Problem**
 
 Traditional asset tracking solutions often suffer from several limitations, including:
@@ -46,39 +48,9 @@ The NFTag device addresses these challenges by offering a comprehensive solution
   * Decentralized Physical Infrastructure Networks (DePIN): Each NFTag functions as a node within DePIN, contributing to a decentralized network that enhances both security and tracking capabilities. This fosters community engagement and collaborative asset recovery.
   * Token rewards for network participation: Users can earn tokens by actively participating in the network. When they help locate lost items or maintain active devices, they receive $NFTag tokens, creating a "find-to-earn" incentive system that encourages community involvement.
 
-**Integration with Web3 and Blockchain**
+* Integration with Web3 and Blockchain
 
-* Comprehensive Dash web application:
    * Web3 Wallet Integration: Users can connect their Web3 wallet to the web app. This integration supports NFT customization and secure transaction handling.
    * Earning Mechanism: A "Mining" $NFTag button simulates earning tokens. This feature demonstrates the concept of tokens increasing by the second, providing a preview of the full functionality.
-
-**Components of an NFTag**
-
-* Bluetooth module: Facilitates communication with the owner's smartphone and broadcasts ownership information to nearby users.
-* Microcontroller: A small processor to handle Bluetooth communication, sensors, and display management.
-* Round LCD display (optional): Displays the owner's chosen NFT or relevant information.
-* Sensors (optional): Includes accelerometers or gyroscopes to detect motion and temperature sensors for environmental monitoring.
-* Alarm/buzzer: Alerts the nearby user if the asset is moved or lost.
-* Battery: Powers the device (ideally rechargeable).
-* Housing: Enclosure that protects the electronics.
-
-**Features of an NFTag**
-
-* Asset tracking: Provides real-time location tracking of assets through Bluetooth and the user's GPRS.
-* NFT display: Option to showcase an NFT image on the LCD display.
-* Ownership information: Broadcasts ownership data via Bluetooth.
-* Security alerts: Sounds an alarm when the asset is moved without authorization.
-* Customizable messages: Allows owners to personalize the broadcasted information.
-* Lost mode: Aids in locating missing tags through the network of users.
-
-**NFTag Web Application**
-
-The NFTag web application is a powerful platform designed to manage both NFTs and asset tracking. It includes features like:
-
-   * Real-time GPS tracking
-   * User engagement for efficient tracking
-   *  Seamless integration with Web3 blockchain technology wallets
-
-Visit our web application here: http://3.145.55.152:8050/
 
 
