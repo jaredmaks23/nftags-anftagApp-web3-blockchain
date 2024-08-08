@@ -45,8 +45,8 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 
 ![image](https://github.com/user-attachments/assets/3448537b-6684-4981-a44f-420196549776)
 
-    * Decentralized Physical Infrastructure Networks (DePIN): Each NFTag functions as a node within DePIN, contributing to a decentralized network that enhances both security and tracking capabilities. This fosters community engagement and collaborative asset recovery.
-    * Token rewards for network participation: Users can earn tokens by actively participating in the network. When they help locate lost items or maintain active devices, they receive $NFTag tokens, creating a "find-to-earn" incentive system that encourages community involvement.
+  * Decentralized Physical Infrastructure Networks (DePIN): Each NFTag functions as a node within DePIN, contributing to a decentralized network that enhances both security and tracking capabilities. This fosters community engagement and collaborative asset recovery.
+  * Token rewards for network participation: Users can earn tokens by actively participating in the network. When they help locate lost items or maintain active devices, they receive $NFTag tokens, creating a "find-to-earn" incentive system that encourages community involvement.
 
 **Integration with Web3 and Blockchain**
 
