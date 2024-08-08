@@ -1,9 +1,9 @@
 # README #
 
-**NFTag for Web3**
 **NFTag: Non-Fungible Tag**
 
-![image](https://github.com/user-attachments/assets/987696b9-6751-4d14-857f-860b2acdfc4f)
+![image](https://github.com/user-attachments/assets/6a246cd1-ef94-4033-bff2-14b4aa229712)
+
 
 
 **Introduction**
@@ -28,14 +28,23 @@ Traditional asset tracking solutions often suffer from several limitations, incl
 The NFTag device addresses these challenges by offering a comprehensive solution for asset tracking. Here's a closer look at its key features:
 
 * Personalization through NFTs:
+
+![image](https://github.com/user-attachments/assets/15a822b1-5425-499e-8f5f-737bd42bfc9a)
+
    * Users can customize their trackers by loading their favorite NFTs onto the round LCD screen via Bluetooth from their smartphone or PC.
    * Non-display option: For those who prefer a more subtle tracker, the NFTag is also available without an LCD screen.
      
-* Advanced tracking and security: 
+* Advanced tracking and security:
+
+  ![image](https://github.com/user-attachments/assets/5192f385-8431-4aed-a5e0-e768bcb13ef7)
+
     * Enhanced security with blockchain technology: By leveraging blockchain technology, the NFTag ensures improved security and privacy for users. The decentralized nature of the blockchain provides a secure platform for managing asset information.
     * Bluetooth tracking and alerts: The NFTag utilizes Bluetooth and GPRS location technology to maintain a secure connection with the owner's smartphone, pinpointing the relative location. If the tag becomes separated, an alarm and personalized message can be activated through the web app, broadcasting ownership details to nearby users (within a 20-50 meter range) to aid in recovery.
       
 * Community engagement and rewarding:
+
+![image](https://github.com/user-attachments/assets/3448537b-6684-4981-a44f-420196549776)
+
     * Decentralized Physical Infrastructure Networks (DePIN): Each NFTag functions as a node within DePIN, contributing to a decentralized network that enhances both security and tracking capabilities. This fosters community engagement and collaborative asset recovery.
     * Token rewards for network participation: Users can earn tokens by actively participating in the network. When they help locate lost items or maintain active devices, they receive $NFTag tokens, creating a "find-to-earn" incentive system that encourages community involvement.
 
