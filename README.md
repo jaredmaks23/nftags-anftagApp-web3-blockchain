@@ -1,6 +1,7 @@
 # NFTag: Non-Fungible Tag #
 
 ![image](https://github.com/user-attachments/assets/6a246cd1-ef94-4033-bff2-14b4aa229712)
+*Fig 1: Shows NFTag and NFTag application*
 
 
 
