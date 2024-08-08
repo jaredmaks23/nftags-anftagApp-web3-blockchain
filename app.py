@@ -1,3 +1,4 @@
+# Libraries
 import dash
 from dash import Dash, Input, Output, callback, html, dcc, dash_table
 import dash_bootstrap_components as dbc
@@ -16,6 +17,7 @@ import dash_daq as daq
 import json
 
 # Amazon S3 configuration
+# Amazon S3 configuration
 S3_BUCKET = ''
 S3_REGION = ''
 S3_ACCESS_KEY = ''
@@ -23,7 +25,7 @@ S3_SECRET_KEY = ''
 s3_client = boto3.client('s3', region_name=S3_REGION, aws_access_key_id=S3_ACCESS_KEY, aws_secret_access_key=S3_SECRET_KEY)
 
 # Global email for filtering
-DEFAULT_EMAIL = "test@testmail.com"
+DEFAULT_EMAIL = "test@test.com"
 
 # SQLite database setup
 DB_NAME = 'nfts-ings-db.sqlite'
@@ -33,7 +35,7 @@ DB_NAME = 'nfts-ings-db.sqlite'
 # Sample device data
 devices = [
     {
-        "name": "NFTag K",
+        "name": "NFTag A",
         "lat": -0.274288,
         "lon": 36.069253,
         "uuid": "opf4b1e2-53c8-45f2-9f1a-972e07c92f4d",
@@ -42,7 +44,7 @@ devices = [
         "owner_contact": "+65 1234567433",
         "custom_message": "I'm fun and track assets",
         "owner": "John Doe",
-        "image_url": "https://nftag.s3.us-east-2.amazonaws.com/.png",
+        "image_url": "https://nftag.s3.us-east-2.amazonaws.com/570.png",
         "unique_code": "1234",
         "status": "not connected",
         "toggle_status": "normal"
@@ -57,22 +59,7 @@ devices = [
         "owner_contact": "+65 1234567433",
         "custom_message": "I'm fun and track assets",
         "owner": "John Doe",
-        "image_url": "https://nftag.s3.us-east-2.amazonaws.com/6265.png",
-        "unique_code": "1234",
-        "status": "not connected",
-        "toggle_status": "normal"
-    },
-    {
-        "name": "NFTag C",
-        "lat": -0.274294,
-        "lon": 36.069287,
-        "uuid": "b5d4f4c2-8b2b-4cha-9d4b-8b92f0b1d97e",
-        "email": DEFAULT_EMAIL,
-        "nft_value": 150.00,
-        "owner_contact": "+65 1234567433",
-        "custom_message": "I'm fun and track assets",
-        "owner": "John Doe",
-        "image_url": "https://nftag.s3.us-east-2.amazonaws.com/6265.png",
+        "image_url": "https://nftag.s3.us-east-2.amazonaws.com/631.png",
         "unique_code": "1234",
         "status": "not connected",
         "toggle_status": "normal"
@@ -124,9 +111,6 @@ def initialize_db():
 # Initialize the database
 initialize_db()
 
-
-
-
 #############################################
 def init_db():
     if not os.path.exists(DB_NAME):
@@ -152,14 +136,25 @@ def get_device_names(default_email):
     conn.close()
     return [{'label': name[0], 'value': name[0]} for name in device_names]
 
-def get_image_urls(device_name):
-    conn = sqlite3.connect('nftag-devices.db')
+def get_filtered_image_urls(device_names):
+    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
-    query = "SELECT image_url FROM devices WHERE name = ?"
-    cursor.execute(query, (device_name,))
-    image_urls = cursor.fetchall()
+    query = "SELECT filename FROM image_data WHERE email = ?"
+    cursor.execute(query, (DEFAULT_EMAIL,))
+    filenames = [record[0] for record in cursor.fetchall()]
     conn.close()
-    return [{'label': url[0], 'value': url[0]} for url in image_urls]
+    
+    try:
+        response = s3_client.list_objects_v2(Bucket=S3_BUCKET)
+        if 'Contents' in response:
+            files = response['Contents']
+            image_urls = [
+                f"https://{S3_BUCKET}.s3.{S3_REGION}.amazonaws.com/{file['Key']}"
+                for file in files if any(filename in file['Key'] for filename in filenames)
+            ]
+            return image_urls
+    except NoCredentialsError:
+        return []
 
 def update_device_image(device_name, image_url):
     conn = sqlite3.connect('nftag-devices.db')
@@ -212,42 +207,6 @@ def list_s3_images():
         print(f"Error fetching S3 images: {str(e)}")
         return []
 
-# Initialize database
-init_db()
-
-
-
-# Initialize the Dash app
-FA = "https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO, FA], title="nftagapp.io", assets_folder ="assets", assets_url_path="assets",
-                    meta_tags=[
-                        {
-                            'charset': 'utf-8',
-                        },
-                        {
-                            'name': 'viewport',
-                            'content': 'width=device-width, initial-scale=1, shrink-to-fit=yes'
-                        }
-                    ]
-
-)
-
-# Define image URLs
-image_urls = {
-    'nftag-a': 'https://nftag.s3.us-east-2.amazonaws.com/1178.png',
-    'nftag-b': 'https://nftag.s3.us-east-2.amazonaws.com/6265.png'
-}
-
-# Create a formatted string with the image URLs
-image_urls_js = ', '.join(f"'{key}': '{url}'" for key, url in image_urls.items())
-
-
-# Choose center coordinates (e.g., NFTag A)
-map_center = devices[0]  # Center map on NFTag A
-center_lon = map_center['lon']
-center_lat = map_center['lat']
-
 # Function to initialize the database
 def initialize_db():
     # Check if the database file exists
@@ -277,8 +236,25 @@ def initialize_db():
         conn.commit()
         conn.close()
 
-# Initialize the database
+# Initialize the databases
 initialize_db()
+init_db()
+
+# Initialize the Dash app
+FA = "https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO, FA], title="nftagapp.io", assets_folder ="assets", assets_url_path="assets",
+                    meta_tags=[
+                        {
+                            'charset': 'utf-8',
+                        },
+                        {
+                            'name': 'viewport',
+                            'content': 'width=device-width, initial-scale=1, shrink-to-fit=yes'
+                        }
+                    ]
+
+)
 
 # Define the layout of the Dash app
 app.layout = html.Div([
@@ -291,7 +267,6 @@ app.layout = html.Div([
                     dbc.Row([
                         daq.BooleanSwitch(
                         id='bluetooth-switch',
-                        on=False,
                         label='Turn On Bluetooth'
                     ),
                         # Interval component for delay
@@ -305,7 +280,6 @@ app.layout = html.Div([
                     dbc.Row(
                         daq.BooleanSwitch(
                         id='location-switch',
-                        on=False,
                         label='Turn On Location'
                     )
                         )
@@ -327,14 +301,14 @@ app.layout = html.Div([
                                                     style={
                                                         "width": "100px",
                                                         "height": "100px",
-                                                        "border-radius": "50%",
+                                                        "borderRadius": "50%",
                                                         "border": "2px solid #ccc",
                                                         "margin": "auto",
                                                         "display": "block"
                                                     }
                                                 ),
                                                 html.H6("Welcome: User"),                                    
-                                            ], style={"text-align": "center"})
+                                            ], style={"textAlign": "center"})
                                         ])
                                     )
                                 )
@@ -352,8 +326,8 @@ app.layout = html.Div([
                         dbc.Row([
                             html.H6("Total Mined $NFTag Tokens", style={'textAlign':'center', 'width':'100%'}),
                             html.Div(id="output", style={
-                            "font-size": "24px",  # Increase font size
-                            "font-weight": "bold",
+                            "fontSize": "24px",  # Increase font size
+                            "fontWeight": "bold",
                             "textAlign":"center",
                             "color": "#007bff"  # Optional: set text color
                         }),
@@ -367,160 +341,20 @@ app.layout = html.Div([
             ]
         ),
         ]),
-    html.Hr(),    
+
+       ################## Map
+       html.Hr(),    
        dbc.Row([
-            dbc.Col(html.Div([
-                html.H6("NFTag Tracking", style={'textAlign': 'center'}),
-                html.Iframe(
-                    id='map-iframe',
-                    srcDoc=f'''
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <meta charset="utf-8">
-                            <title>Add markers with images and owner information</title>
-                            <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-                            <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
-                            <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
-                            <style>
-                                body {{
-                                    margin: 0;
-                                    padding: 0;
-                                }}
-                                #map {{
-                                    position: absolute;
-                                    top: 0;
-                                    bottom: 0;
-                                    width: 100%;
-                                    height: 100%;
-                                }}
-                                .mapboxgl-popup-content {{
-                                    font-size: 14px;
-                                }}
-                            </style>
-                        </head>
-                        <body>
-                            <div id="map"></div>
-                            <script>
-                                mapboxgl.accessToken = 'MAPBOX TOKEN KEY';
-                                const map = new mapboxgl.Map({{
-                                    container: 'map',
-                                    style: 'mapbox://styles/mapbox/streets-v12',
-                                    center: [{center_lon}, {center_lat}],
-                                    zoom: 15
-                                }});
+        dbc.Col([
+            html.H6("NFTag Tracking", style={'textAlign': 'center'}),
+            html.Iframe(
+                id='map-iframe',
+                srcDoc='',
+                style={'height': '600px', 'width': '100%'}
+            )
+        ], width=12, lg=8),
+        ################### Map
 
-                                function loadImages(callback) {{
-                                    const images = {{{image_urls_js}}};
-                                    let imagesLoaded = 0;
-                                    const totalImages = Object.keys(images).length;
-
-                                    for (const [id, url] of Object.entries(images)) {{
-                                        map.loadImage(url, (error, image) => {{
-                                            if (error) {{
-                                                console.error('Error loading image for ' + id + ':', error);
-                                                return;
-                                            }}
-                                            map.addImage(id, image);
-                                            imagesLoaded++;
-                                            if (imagesLoaded === totalImages) {{
-                                                callback();
-                                            }}
-                                        }});
-                                    }}
-                                }}
-
-                                function addPopup(coordinates, title, owner, value) {{
-                                    new mapboxgl.Popup()
-                                        .setLngLat(coordinates)
-                                        .setHTML(`
-                                            <h3>${{title}}</h3>
-                                            <p>Owner: ${{owner}}</p>
-                                            <p>Value: $${{value.toFixed(2)}}</p>
-                                        `)
-                                        .addTo(map);
-                                }}
-
-                                map.on('load', () => {{
-                                    loadImages(() => {{
-                                        map.addSource('points', {{
-                                            'type': 'geojson',
-                                            'data': {{
-                                                'type': 'FeatureCollection',
-                                                'features': [
-                                                    {{
-                                                        'type': 'Feature',
-                                                        'geometry': {{
-                                                            'type': 'Point',
-                                                            'coordinates': [36.069253, -0.274288]
-                                                        }},
-                                                        'properties': {{
-                                                            'title': 'NFTag A',
-                                                            'icon': 'nftag-a',
-                                                            'owner': 'John Doe',
-                                                            'value': 100.00
-                                                        }}
-                                                    }},
-                                                    {{
-                                                        'type': 'Feature',
-                                                        'geometry': {{
-                                                            'type': 'Point',
-                                                            'coordinates': [36.069287, -0.274294]
-                                                        }},
-                                                        'properties': {{
-                                                            'title': 'NFTag B',
-                                                            'icon': 'nftag-b',
-                                                            'owner': 'John Doe',
-                                                            'value': 150.00
-                                                        }}
-                                                    }}
-                                                ]
-                                            }}
-                                        }});
-
-                                        map.addLayer({{
-                                            'id': 'points-layer',
-                                            'type': 'symbol',
-                                            'source': 'points',
-                                            'layout': {{
-                                                'icon-image': ['get', 'icon'],
-                                                'icon-size': 0.5,
-                                                'text-field': ['get', 'title'],
-                                                'text-font': [
-                                                    'Open Sans Semibold',
-                                                    'Arial Unicode MS Bold'
-                                                ],
-                                                'text-offset': [0, 1.25],
-                                                'text-anchor': 'top'
-                                            }}
-                                        }});
-
-                                        // Add popups on marker click
-                                        map.on('click', 'points-layer', (e) => {{
-                                            const coordinates = e.features[0].geometry.coordinates.slice();
-                                            const title = e.features[0].properties.title;
-                                            const owner = e.features[0].properties.owner;
-                                            const value = e.features[0].properties.value;
-
-                                            addPopup(coordinates, title, owner, value);
-                                        }});
-
-                                        map.on('mouseenter', 'points-layer', () => {{
-                                            map.getCanvas().style.cursor = 'pointer';
-                                        }});
-
-                                        map.on('mouseleave', 'points-layer', () => {{
-                                            map.getCanvas().style.cursor = '';
-                                        }});
-                                    }});
-                                }});
-                            </script>
-                        </body>
-                        </html>
-                    ''',
-                    style={'height': '600px', 'width': '100%'}
-                )
-            ]), width=12, lg=8),
           dbc.Col([
               dbc.Row([
                 # web3 wallet integration and NFT cuustomization
@@ -594,7 +428,7 @@ app.layout = html.Div([
                     dcc.Input(id='filename-input', type='text', value='NFTag.png'),
                     html.Br(),
                     html.Button('Upload PFP', id='upload-button'),
-                    html.Div(id='image-output', style={'display': 'none'}),
+                    html.Div(id='uploaded-image-output', style={'display': 'none'}),
                     html.Div(id='image-list', style={'display': 'none'}),
                     html.Div(id='image-output'),
 
@@ -679,7 +513,7 @@ app.layout = html.Div([
 
                             ]), md=6),
                             dbc.Col(html.Div([
-                                html.H6("Select PFP Link:", style={'textAlign': 'center'}),
+                                html.H6("Set NFTag PFP:", style={'textAlign': 'center'}),
                                 html.Div(id='database-contents', style={'color': 'black', 'width': '100%'}),
                                 dbc.Row([
                                     dbc.Col(
@@ -696,7 +530,7 @@ app.layout = html.Div([
                                     value=None,
                                     style={'color': 'black', 'width': '100%'}
                                 ),
-                                dbc.Button("Submit Link", id="submit-button", style={'width': '100%'}, n_clicks=0)
+                                dbc.Button("Send NFT", id="submit-button", style={'width': '100%'}, n_clicks=0)
                 
                     ########### End PFP for NFTag                               
                             ]), md=6),
@@ -724,6 +558,181 @@ app.layout = html.Div([
 ])
 
 # Callbacks
+# Callback to update the map
+@app.callback(
+    Output('map-iframe', 'srcDoc'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_map(n_intervals):
+    email = DEFAULT_EMAIL
+    conn = sqlite3.connect('nftag-devices.db')
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        SELECT name, lat, lon, uuid, nft_value, owner_contact, custom_message, owner, image_url, unique_code, status, toggle_status
+        FROM devices 
+        WHERE email = ? AND status = ?
+    ''', (email, 'connected'))
+    
+    rows = cursor.fetchall()
+    conn.close()
+    
+    # Create a list of dictionaries
+    columns = ["name", "lat", "lon", "uuid", "nft_value", "owner_contact", "custom_message", "owner", "image_url", "unique_code", "status", "toggle_status"]
+    devices_list = [{columns[i]: row[i] for i in range(len(columns))} for row in rows]
+    
+    # Convert list of dictionaries to JSON format for display
+    devices_json = json.dumps(devices_list)
+    
+    # HTML and JavaScript for the map
+    html_code = f'''
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add markers with images and owner information</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+        <style>
+            body {{
+                margin: 0;
+                padding: 0;
+            }}
+            #map {{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+            }}
+            .mapboxgl-popup-content {{
+                font-size: 14px;
+            }}
+            .mapboxgl-ctrl-group {{
+                position: absolute;
+                bottom: 30px;
+                right: 10px;
+                z-index: 1;
+            }}
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+            mapboxgl.accessToken = 'MAPBOX-TOKEN-KEY';
+            const map = new mapboxgl.Map({{
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: [36.069253, -0.274288],
+                zoom: 15
+            }});
+
+            const devices = {devices_json};
+
+            function loadImages(callback) {{
+                const images = devices.reduce((acc, device) => {{
+                    acc[device.uuid] = device.image_url;
+                    return acc;
+                }}, {{}});
+                let imagesLoaded = 0;
+                const totalImages = Object.keys(images).length;
+
+                for (const [id, url] of Object.entries(images)) {{
+                    map.loadImage(url, (error, image) => {{
+                        if (error) {{
+                            console.error('Error loading image for ' + id + ':', error);
+                            return;
+                        }}
+                        map.addImage(id, image);
+                        imagesLoaded++;
+                        if (imagesLoaded === totalImages) {{
+                            callback();
+                        }}
+                    }});
+                }}
+            }}
+
+            function addPopup(coordinates, title, owner, value) {{
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(`
+                        <h3>${{title}}</h3>
+                        <p>Owner: ${{owner}}</p>
+                        <p>Value: $${{value.toFixed(2)}}</p>
+                    `)
+                    .addTo(map);
+            }}
+
+            map.on('load', () => {{
+                loadImages(() => {{
+                    map.addSource('points', {{
+                        'type': 'geojson',
+                        'data': {{
+                            'type': 'FeatureCollection',
+                            'features': devices.map(device => {{
+                                return {{
+                                    'type': 'Feature',
+                                    'geometry': {{
+                                        'type': 'Point',
+                                        'coordinates': [device.lon, device.lat]
+                                    }},
+                                    'properties': {{
+                                        'title': device.name,
+                                        'icon': device.uuid,
+                                        'owner': device.owner,
+                                        'value': device.nft_value
+                                    }}
+                                }};
+                            }})
+                        }}
+                    }});
+
+                    map.addLayer({{
+                        'id': 'points-layer',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {{
+                            'icon-image': ['get', 'icon'],
+                            'icon-size': 1.2,
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                                'Open Sans Semibold',
+                                'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.25],
+                            'text-anchor': 'top'
+                        }}
+                    }});
+
+                    // Add zoom controls
+                    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+                    // Add popups on marker click
+                    map.on('click', 'points-layer', (e) => {{
+                        const coordinates = e.features[0].geometry.coordinates.slice();
+                        const title = e.features[0].properties.title;
+                        const owner = e.features[0].properties.owner;
+                        const value = e.features[0].properties.value;
+
+                        addPopup(coordinates, title, owner, value);
+                    }});
+
+                    map.on('mouseenter', 'points-layer', () => {{
+                        map.getCanvas().style.cursor = 'pointer';
+                    }});
+
+                    map.on('mouseleave', 'points-layer', () => {{
+                        map.getCanvas().style.cursor = '';
+                    }});
+                }});
+            }});
+        </script>
+    </body>
+    </html>
+    '''
+    return html_code
+
 # Callback to display list of images
 @app.callback(
     Output('s3-image-list', 'children'),
@@ -766,7 +775,7 @@ def list_s3_images():
 def update_wallet_address(n_clicks, wallet_address):
     if wallet_address:
         # Connect to web3 Ethereum node 
-        infura_url = 'https://mainnet.infura.io/v3/7bf521618cad48c88d3e34d43a15e19d'
+        infura_url = 'https://mainnet.infura.io/v3/PROJECT-ID'
         web3 = Web3(Web3.HTTPProvider(infura_url))
 
         # Check if connected
@@ -821,20 +830,7 @@ def update_output(n_clicks):
 
     # Close the connection
     conn.close()
-
     return f"Bal: {total_presses}"
-
-# Get nearby NFtag devices callback
-@app.callback(
-    Output('delay-interval', 'disabled'),
-    [Input('bluetooth-switch', 'on'),
-     Input('location-switch', 'on')]
-)
-def start_interval(bluetooth_on, location_on):
-    if bluetooth_on or location_on:
-        return False  # Enable interval
-    return True  # Disable interval
-
 
 # UPLOAD CALLBACKS
 # Combined callback to update dropdowns and image list
@@ -846,38 +842,23 @@ def start_interval(bluetooth_on, location_on):
      Input('device-dropdown', 'value')]
 )
 def update_dropdowns_and_images(n_intervals, selected_device):
-    device_options = get_device_names(DEFAULT_EMAIL)
+    device_names = get_device_names(DEFAULT_EMAIL)
+    image_urls = get_filtered_image_urls(device_names)
     
-    image_options = []
-    if selected_device:
-        image_options = get_image_urls(selected_device)
+    # Format the options for the device-dropdown
+    device_options = [{'label': name['value'], 'value': name['value']} for name in device_names]
     
-    try:
-        conn = sqlite3.connect(DB_NAME)
-        cursor = conn.cursor()
-        cursor.execute('SELECT filename FROM image_data WHERE email = ?', (DEFAULT_EMAIL,))
-        filenames = [record[0] for record in cursor.fetchall()]
-        conn.close()
-        
-        if filenames:
-            all_links = list_s3_images()
-            filtered_links = [
-                link for link in all_links if any(filename in link for filename in filenames)
-            ]
-            if filtered_links:
-                dropdown_options = [{'label': link, 'value': link} for link in filtered_links]
-                link_elements = [html.Div(html.P(link)) for link in filtered_links]
-                return device_options, image_options, html.Div(link_elements)
-            else:
-                return device_options, image_options, html.Div("No matching images found in S3.")
-        else:
-            return device_options, image_options, html.Div("No filenames found for the default email.")
-    except Exception as e:
-        return device_options, image_options, html.Div(f"Error: {str(e)}")
+    # Format the options for the image-dropdown
+    image_dropdown_options = [{'label': url, 'value': url} for url in image_urls]
+    
+    if image_urls:
+        return device_options, image_dropdown_options, html.Div()
+    else:
+        return device_options, [], html.Div("No matching images found in S3.")
 
 # Callback to process and upload image
 @app.callback(
-    Output('image-output', 'children'),
+    Output('uploaded-image-output', 'children'),
     [Input('upload-button', 'n_clicks')],
     [State('upload-image', 'contents'),
      State('filename-input', 'value')]
@@ -921,7 +902,6 @@ def update_device_image_url(n_clicks, device_name, image_url):
         update_device_image(device_name, image_url)
         return image_url
     return dash.no_update
-
 
 ######################################NFT MANAGEMENT CALLBACKS
 @app.callback(
@@ -993,7 +973,7 @@ def update_device_status(n_clicks_link, n_clicks_disconnect, n_clicks_lost, n_cl
     conn.close()
     
     # Create a DataFrame for the table
-    columns = ["name", "status", "owner", "nft_value", "toggle_status", "custom_message"]
+    columns = ["NFTag Name", "Status", "Owner", "Value", "Tracking Activity", "Custom Message"]
     
     if not rows:
         return [{'label': name[0], 'value': name[0]} for name in device_names], html.P("No devices found for the default email.")
@@ -1008,7 +988,6 @@ def update_device_status(n_clicks_link, n_clicks_disconnect, n_clicks_lost, n_cl
     
     # Return device names and the table
     return [{'label': name[0], 'value': name[0]} for name in device_names], table
-
 
 @app.callback(
     Output('customization-device-dropdown', 'options'),
@@ -1054,7 +1033,6 @@ def update_device_customization(n_clicks, selected_device, selected_column, new_
         return f"Updated {selected_column} for device {selected_device} to '{new_value}'"
 
     return ""
-##########################################
 
 # Run the app
 if __name__ == '__main__':
