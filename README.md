@@ -31,6 +31,7 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 * Personalization through NFTs:
 
 ![image](https://github.com/user-attachments/assets/15a822b1-5425-499e-8f5f-737bd42bfc9a)
+<center>*Fig 2: Shows Personalised NFTag customised from the app once connected via bluetooth*</center>
 
    * Users can customize their trackers by loading their favorite NFTs onto the round LCD screen via Bluetooth from their smartphone or PC.
    * Non-display option: For those who prefer a more subtle tracker, the NFTag is also available without an LCD screen.
