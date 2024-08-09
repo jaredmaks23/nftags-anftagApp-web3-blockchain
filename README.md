@@ -61,13 +61,11 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 **Introduction to the webapp**
 
 | ![dash1](https://github.com/user-attachments/assets/a628d094-f3b4-4527-92b3-c1ab0f12eedb)
+*Fig 6: Shows landing dashboard of the NFTag app *
+
  | ![landing](https://github.com/user-attachments/assets/13b49182-67e7-41ec-8f76-69e0a81fa9c6)
- |
-|:-----------------------------:|:-----------------------------:|
-| Fig 6: Shows landing dashboard of the NFTag app            | Fig 7: Shows mobile view of the NFTag app            |
-
-
-
+ *Fig 7: Shows mobile view of the NFTag app *
+ |         
 
 The NFTg application is a cutting-edge platform that brings the physical and digital worlds together in anetwork through innovative use of NFT technology combined wih bluetooth and Decentralised web3 blockchain application. This web application integrates web3 Ethereum blockchain, allowing users to interact with their NFTags through linking ther wallets, with infura and smart contracts. With NFTags having Bluetooth, users can customize them with their favorite NFT profile pictures (PFPs) and custom messages, and even mine $NFTag tokens while using the platform.
 
@@ -84,6 +82,15 @@ The platform scans for nearby NFTags and lists them, allowing users to connect m
 
 **NFT PFP Customization**
 Once connected, users can upload their favorite NFT PFP thrugh a tailor made feature section, set a custom message, and even add an alert alarm/message settings to the tag. In addition NFTag device names can be changed and customised to suit the user preference. It is through this feature that users help track lost NFTags and earn at the same time helping owners trace their assets. Further, users can change/customise NFT PFPs displayed on their NFTag screens.
+
+![dasb2](https://github.com/user-attachments/assets/df79ba6c-3967-47ae-822f-1af813790c5e)
+*Fig 8: Describes customization features on the app*
+
+![customization](https://github.com/user-attachments/assets/9ca3b472-4a77-443a-8589-10dc1740493b)
+*Fig 9: Describes customization features on the app on mobile*
+
+![upload](https://github.com/user-attachments/assets/f563e531-9fbf-405a-ad4e-481c53695b78)
+*Fig 10: Describes customization features on the app on mobile*
 
 **Real-Time Tracking**
 NFTags are visualized on a map, making it easy to track their location. Also, to accurately identify them, wheh a user clicks on the marker/icon, hover information is visualised showin gthe nade of the NFTag, owner, its value among other information. The visualization works for the devices that are active/connected to the platform. Any NFTag device that is not connected is not visualised.
@@ -113,6 +120,11 @@ Bluetooth Integration: The NFTag firmwares are capable of connecting to a phone 
 Deployment. This is the linking point in the physical network that enables tracking and alerting.
 The platform is currently deployed on an AWS EC2 instance, providing easy access for users at http://3.145.55.152:8050/.
 
+![dasb2](https://github.com/user-attachments/assets/231b16bf-21fd-40dc-83d5-4dda2edb56fe)
+*Fig 11: Shows uploaded PFPs*
+![pfps](https://github.com/user-attachments/assets/6f3b1e37-f4d0-44c3-8290-c38b966eea24)
+*Fig 12: Shows uploaded PFPs on mobile view*
+
 Getting Started
 To get started with NFTag, clone this repository and add necessary AWS S3, mapbox credentials to set up the platform locally.
 
@@ -120,8 +132,6 @@ bash
 Copy code
 git clone https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain.git
 cd nftags-anftagApp-web3-blockchain
-
-
 
 Contributing
 We welcome contributions! Whether you're fixing bugs, adding new features, or improving documentation, your efforts are appreciated. Please check out our Contributing Guide for more details.
