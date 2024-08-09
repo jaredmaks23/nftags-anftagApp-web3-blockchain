@@ -45,7 +45,7 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 * Community engagement and rewarding:
 
 ![image](https://github.com/user-attachments/assets/3448537b-6684-4981-a44f-420196549776)
-*Fig 2: Illustrates earning mechanism when users help find lost assets*
+*Fig 4: Illustrates earning mechanism when users help find lost assets*
 
   * Decentralized Physical Infrastructure Networks (DePIN): Each NFTag functions as a node within DePIN, contributing to a decentralized network that enhances both security and tracking capabilities. This fosters community engagement and collaborative asset recovery.
   * Token rewards for network participation: Users can earn tokens by actively participating in the network. When they help locate lost items or maintain active devices, they receive $NFTag tokens, creating a "find-to-earn" incentive system that encourages community involvement.
@@ -59,15 +59,13 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 # Demo NFTag Web Application #
 
 **Introduction to the webapp**
-![Project Logo]([assets/dash1.png](https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/assets/dahsh1.PNG))
 
-| ![Image 1](assets/dash1.png) | ![Image 2](assets/landing.png) |
+| ![Fig 6: ](dash1.png) | ![Image 2](landing.png) |
 |:-----------------------------:|:-----------------------------:|
-| Image 1 Shows landing dashboard of the web applicatin           | Image 2 Shows landing dashboard on mobile           |
+| Fig 6: Shows landing dashboard of the web applicatin           | Fig 7: Shows landing dashboard on mobile           |
 
 
 The NFTg application is a cutting-edge platform that brings the physical and digital worlds together in anetwork through innovative use of NFT technology combined wih bluetooth and Decentralised web3 blockchain application. This web application integrates web3 Ethereum blockchain, allowing users to interact with their NFTags through linking ther wallets, with infura and smart contracts. With NFTags having Bluetooth, users can customize them with their favorite NFT profile pictures (PFPs) and custom messages, and even mine $NFTag tokens while using the platform.
-
 
 
 **Platform Overview**
