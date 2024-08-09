@@ -59,7 +59,7 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 # Demo NFTag Web Application #
 
 **Introduction to the webapp**
-![Project Logo](assets/dash1.png)
+![Project Logo]([assets/dash1.png](https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/assets/dahsh1.PNG))
 
 | ![Image 1](assets/dash1.png) | ![Image 2](assets/landing.png) |
 |:-----------------------------:|:-----------------------------:|
