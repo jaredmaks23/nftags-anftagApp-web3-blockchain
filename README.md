@@ -59,6 +59,8 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 # Demo NFTag Web Application #
 
 **Introduction to the webapp**
+![Dashboard Image](assets/dash1.png)
+
 
 | ![Fig 6: ](dash1.png) | ![Image 2](landing.png) |
 |:-----------------------------:|:-----------------------------:|
