@@ -60,7 +60,7 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 
 **Introduction to the webapp**
 
-| [![Fig 6: ](dash1.png)](https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/assets/dahsh1.PNG) | [![Image 2](landing.png)](https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/assets/landing.PNG) |
+| [![Fig 6: ](dash1.png)](https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/images/dahsh1.PNG) | [![Image 2](landing.png)](https://github.com/jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/assets/landing.PNG) |
 |:-----------------------------:|:-----------------------------:|
 | Fig 6: Shows landing dashboard of the web applicatin           | Fig 7: Shows landing dashboard on mobile           |
 
