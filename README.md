@@ -58,6 +58,9 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 
 # Demo NFTag Web Application #
 
+Check out the video demo of the app:
+https://drive.google.com/file/d/12TwjaPjAms5v5r9aLJ1nOYwkyL739RwP/view?usp=sharing
+
 **Introduction to the webapp**
 ![dash1](https://github.com/user-attachments/assets/a628d094-f3b4-4527-92b3-c1ab0f12eedb)
 *Fig 6: Shows landing dashboard of the NFTag app*
