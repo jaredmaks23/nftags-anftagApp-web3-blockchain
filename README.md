@@ -60,8 +60,7 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 
 **Introduction to the webapp**
 
-images/dash1.PNG
-![Fig 6: ](dash1.png)](images/dahsh1.PNG)         |
+![Dashboard Image](https://jaredmaks23/nftags-anftagApp-web3-blockchain/blob/main/images/dash1.png)
 
 
 The NFTg application is a cutting-edge platform that brings the physical and digital worlds together in anetwork through innovative use of NFT technology combined wih bluetooth and Decentralised web3 blockchain application. This web application integrates web3 Ethereum blockchain, allowing users to interact with their NFTags through linking ther wallets, with infura and smart contracts. With NFTags having Bluetooth, users can customize them with their favorite NFT profile pictures (PFPs) and custom messages, and even mine $NFTag tokens while using the platform.
