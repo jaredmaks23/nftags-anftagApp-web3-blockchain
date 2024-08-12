@@ -9,7 +9,7 @@ Non-Fungible Tokens (NFTs) have emerged as a revolutionary tool for representing
 
 Imagine a world where your valuables are not only secure but also personalized to reflect your unique style. Where every item you own, from your laptop to your beloved pet, is part of a vibrant, decentralized community dedicated to keeping your belongings safe.
 
-NFTag offers a solution that leverages NFTs, Bluetooth and Internet of Things (IoT) technology to create a secure, engaging, and efficient way to manage valuable items. You can attach the NFTag device to valuables such as laptops, pets, or other belongings. It combines the power of NFTs and Bluetooth to offer a unique blend of functionality and personalization for tracking. They come in two flavours; one with ESP32-C3 Wifi Bluetooth Development Board Module, 1.28 Inch Round LCD Display Screen 240X240 IPS and one without.
+NFTag (Non-Fungible Tag) offers a solution that leverages NFTs, Bluetooth and Internet of Things (IoT) technology to create a secure, engaging, and efficient way to manage valuable items. You can attach the NFTag device to valuables such as laptops, hardware ledgers, pets, or other belongings. It combines the power of NFTs and Bluetooth to offer a unique blend of functionality and personalization for tracking. They come in two flavours; one with ESP32-C3 Wifi Bluetooth Development Board Module, 1.28 Inch Round LCD Display Screen 240X240 IPS and one without.
 
 Visit our web application here: http://3.145.55.152:8050/
 
@@ -31,7 +31,7 @@ The NFTag device addresses these challenges by offering a comprehensive solution
 ![image](https://github.com/user-attachments/assets/15a822b1-5425-499e-8f5f-737bd42bfc9a)
 *Fig 2: Shows Personalised NFTag customised from the app once connected via bluetooth*
 
-   * Users can customize their trackers by loading their favorite NFTs onto the round LCD screen via Bluetooth from their smartphone or PC.
+   * Users can customize their trackers by connecting their wallet and loading their favorite NFTs onto the round LCD screen via Bluetooth from their smartphone or PC.
    * Non-display option: For those who prefer a more subtle tracker, the NFTag is also available without an LCD screen.
      
 * Advanced tracking and security:
