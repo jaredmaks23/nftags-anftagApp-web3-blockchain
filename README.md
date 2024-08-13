@@ -72,7 +72,7 @@ https://drive.google.com/file/d/12TwjaPjAms5v5r9aLJ1nOYwkyL739RwP/view?usp=shari
 
  *Fig 7: Shows mobile view of the NFTag app*        
 
-The NFTg application is a cutting-edge platform that brings the physical and digital worlds together in anetwork through innovative use of NFT technology combined wih bluetooth and Decentralised web3 blockchain application. This web application integrates web3 Ethereum blockchain, allowing users to interact with their NFTags through linking ther wallets, with infura and smart contracts. With NFTags having Bluetooth, users can customize them with their favorite NFT profile pictures (PFPs) and custom messages, and even mine $NFTag tokens while using the platform.
+The NFTg application is a cutting-edge platform that brings the physical and digital worlds together in a network through innovative use of NFT technology combined wih bluetooth and Decentralised web3 blockchain application. This web application integrates web3 Ethereum blockchain, allowing users to interact with their NFTags through linking ther wallets, with infura and smart contracts. With NFTags having Bluetooth, users can customize them with their favorite NFT profile pictures (PFPs) and custom messages, and even mine $NFTag tokens while using the platform.
 
 
 **Platform Overview**
@@ -110,7 +110,7 @@ NFTags are visualized on a map, making it easy to track their location. Also, to
 *Fig 13: Shows how NFTags are tracked* 
 
 **Web3 Wallet Integration**
-Leveraging web3 python library, Users are able to be connected to the web3 blockchain infrustructure such as Eutherium. Users can link their web3 wallet by adding their wallet addresses; such as MetaMask, and demonstrate how to customize NFT metadata on the blockchain using smart contracts with the help of Infura and Eutherium network testnets such as Rinkeby and sepolia. Users can access deployed contracts and potentially modify NFT metadata for their own use in the blockchain for NFTags.
+Leveraging web3 python library, Users are able to be connected to the web3 blockchain infrustructure such as Ethereum. Users can link their web3 wallet by adding their wallet addresses; such as MetaMask, and demonstrate how to customize NFT metadata on the blockchain using smart contracts with the help of Infura and Ethereum network testnets such as Rinkeby and Sepolia. Users can access deployed contracts and potentially modify NFT metadata for their own use in the blockchain for NFTags.
 
 ![wallet-nft](https://github.com/user-attachments/assets/6c758311-5d76-4813-91b9-8977d551f111)
 *Fig 14: Shows mobile view of the NFTag app wallet integration* 
